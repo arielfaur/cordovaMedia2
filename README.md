@@ -1,20 +1,28 @@
 # cordovaMedia2
 
-This module is a rewrite of the $cordovaMedia class from ngCordova that takes advantage of Promises to fix the issue with
+This module is a rewrite of the `$cordovaMedia` class from ngCordova that takes advantage of Promises to fix the issue with
 media duration and position. It does so by using the `notify` method of the Deferred API.
 
 # Usage
-Assuming you are already using ngCordova, simply include the `cordovaMedia2.js` file after `ngCordova.js`
 
-````
+## Simply include the `cordovaMedia2.js` file after `ngCordova.js`
+
+```
 <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+```
+
+```
 <script src="js/cordovaMedia2.js"></script>
-````
+```
 
-Then inject `$cordovaMedia2` in your controller:
+## Inject `ngCordova` in your app's module
 
-````
-    .controller('MusicCtrl', ['$scope', '$cordovaMedia2', function($scope, $cordovaMedia2) {
+`angular.module('app', ['ionic', 'ngCordova'])`
+
+## Inject `$cordovaMedia2` in your controller:
+
+```
+    controller('MusicCtrl', ['$scope', '$cordovaMedia2', function($scope, $cordovaMedia2) {
         $scope.playSomething = function() {
             var url = 'song.mp3';
             var media = $cordovaMedia2.newMedia(url);
@@ -32,7 +40,6 @@ Then inject `$cordovaMedia2` in your controller:
 
                 console.log(JSON.stringify(data));
             });
-
         }
     }])
-````
+```
