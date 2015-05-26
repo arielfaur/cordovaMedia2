@@ -1,0 +1,29 @@
+{
+  "name": "cordovaMedia2",
+  "main": "cordovaMedia2.js",
+  "version": "1.0.0",
+  "description": "A rewrite of the $cordovaMedia class (ngCordova) that properly reports media position and duration using Promises",
+  "devDependencies": {
+    "angular": "~1.3.15"
+  },
+  "authors": [
+    "Ariel Faur <ariel.faur@gmail.com>"
+  ],
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "Cordova",
+    "ngCordova",
+    "media",
+    "plugin"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

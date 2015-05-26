@@ -1,0 +1,17 @@
+{
+  "name": "cordovaMedia2",
+  "version": "1.0.0",
+  "description": "A rewrite of the $cordovaMedia class (ngCordova) that properly reports media position and duration using Promises",
+  "main": "cordovaMedia2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Cordova",
+    "ngCordova",
+    "media",
+    "plugin"
+  ],
+  "author": "Ariel Faur",
+  "license": "ISC"
+}
