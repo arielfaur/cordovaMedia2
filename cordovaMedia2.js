@@ -51,6 +51,7 @@ angular.module('ngCordova.plugins.media2', [])
   }
 
   function NewMedia(src) {
+      if (!src) return;
       this.media = new Media(src,
         function (success) {
             clearTimer();

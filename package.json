@@ -13,5 +13,11 @@
     "plugin"
   ],
   "author": "Ariel Faur",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.12.33",
+    "karma-chrome-launcher": "^0.1.12",
+    "karma-jasmine": "^0.3.5"
+  }
 }
