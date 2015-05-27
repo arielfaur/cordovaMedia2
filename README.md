@@ -26,7 +26,7 @@ media duration and position. It does so by using the `notify` method of the Defe
         var media;
 
         document.addEventListener("deviceready", function() {
-            media = $cordovaMedia2.newMedia($scope.tracks[0].url);
+            media = $cordovaMedia2.newMedia('mySong.mp3');
         }, false);
 
         $scope.playSomething = function() {
@@ -34,9 +34,7 @@ media duration and position. It does so by using the `notify` method of the Defe
                 console.log('media duration: ' + duration);
             });
 
-            media.getCurrentPosition().then(function() {
-                console.log('finished playback')
-            }, null, function(position) {
+            media.getCurrentPosition().then(null, null, function(position) {
                 console.log('position ' + position)
             });
 
