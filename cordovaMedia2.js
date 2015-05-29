@@ -56,16 +56,16 @@ angular.module('ngCordova.plugins.media2', [])
         function (success) {
             clearTimer();
             resetValues();
-            q.playback.resolve(success);
-            q.position.resolve(success);
+            q.playback && q.playback.resolve(success);
+            q.position && q.position.resolve(success);
         }, function (error) {
             clearTimer();
             resetValues();
-            q.playback.reject(error);
-            q.position.reject(error);
+            q.playback && q.playback.reject(error);
+            q.position && q.position.reject(error);
         }, function (status) {
             mediaStatus = status;
-            q.playback.notify(mediaStatus);
+            q.playback && q.playback.notify(mediaStatus);
         });
   }
 
