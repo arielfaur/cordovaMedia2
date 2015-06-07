@@ -1,3 +1,6 @@
+## v1.0.2
+- Use a single promise instance per media
+
 ## v1.0.1
 
 - Use multiple promises for playback, track position and duration

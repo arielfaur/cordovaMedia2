@@ -2,8 +2,8 @@
  * A rewrite of the Media class from ngCordova that properly reports media position and duration using Promises
  *
  * Author: Ariel Faur
- * Version 1.0.1
- * Date 27/05/2015
+ * Version 1.0.2
+ * Date 07/06/2015
  */
 
 // install   :      cordova plugin add org.apache.cordova.media
@@ -12,13 +12,15 @@
 angular.module('ngCordova.plugins.media2', [])
 
 .service('NewMedia', ['$q', '$interval', function ($q, $interval) {
-  var q = {}, mediaStatus = null, mediaPosition = -1, mediaTimer, mediaDuration = -1;
+  var q, mediaStatus = null, mediaPosition = -1, mediaTimer, mediaDuration = -1;
 
   function setTimer(media) {
+      if (angular.isDefined(mediaTimer)) return;
+
       mediaTimer = $interval(function () {
           if (mediaDuration < 0) {
               mediaDuration = media.getDuration();
-              if (q.duration && mediaDuration > 0) q.duration.resolve(mediaDuration);
+              if (q && mediaDuration > 0) q.notify({duration: mediaDuration});
           }
 
           media.getCurrentPosition(
@@ -33,7 +35,7 @@ angular.module('ngCordova.plugins.media2', [])
                 console.log("Error getting pos=" + e);
             });
 
-          if (q.position) q.position.notify(mediaPosition);
+          if (q) q.notify({position: mediaPosition});
 
       }, 1000);
   }
@@ -51,39 +53,26 @@ angular.module('ngCordova.plugins.media2', [])
   }
 
   function NewMedia(src) {
-      if (!src) return;
       this.media = new Media(src,
         function (success) {
             clearTimer();
             resetValues();
-            q.playback && q.playback.resolve(success);
-            q.position && q.position.resolve(success);
+            q.resolve(success);
         }, function (error) {
             clearTimer();
             resetValues();
-            q.playback && q.playback.reject(error);
-            q.position && q.position.reject(error);
+            q.reject(error);
         }, function (status) {
             mediaStatus = status;
-            q.playback && q.playback.notify(mediaStatus);
+            q.notify({status: mediaStatus});
         });
   }
-
-  NewMedia.prototype.getCurrentPosition = function () {
-      q.position = $q.defer();
-      return q.position.promise;
-  };
-
-  NewMedia.prototype.getDuration = function () {
-      q.duration = $q.defer();
-      return q.duration.promise;
-  };
 
   // iOS quirks :
   // -  myMedia.play({ numberOfLoops: 2 }) -> looping
   // -  myMedia.play({ playAudioWhenScreenIsLocked : false })
   NewMedia.prototype.play = function (options) {
-      q.playback = $q.defer();
+      q = $q.defer();
 
       if (typeof options !== "object") {
           options = {};
@@ -93,7 +82,7 @@ angular.module('ngCordova.plugins.media2', [])
 
       setTimer(this.media);
 
-      return q.playback.promise;
+      return q.promise;
   };
 
   NewMedia.prototype.pause = function () {

@@ -1,6 +1,6 @@
 {
   "name": "cordovaMedia2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A rewrite of the $cordovaMedia class (ngCordova) that properly reports media position and duration using Promises",
   "main": "cordovaMedia2.js",
   "scripts": {
