@@ -30,20 +30,19 @@ media duration and position. It does so by using the `notify` method of the Defe
         }, false);
 
         $scope.playSomething = function() {
-            media.getDuration().then(function(duration) {
-                console.log('media duration: ' + duration);
-            });
+             media.play().then(function() {
+                 // success
+                 console.log('finished playback');
+             }, null, function(data) {
+                 console.log('track progress: ' + data.position);
 
-            media.getCurrentPosition().then(null, null, function(position) {
-                console.log('position ' + position)
-            });
-
-            media.play().then(function() {
-                // success
-                console.log('finished playback');
-            }, null, function(status) {
-                console.log('status: ' + status);
-            });
+                 if (data.status) {
+                     console.log('track status change: ' + data.status);
+                 }
+                 if (data.duration) {
+                     console.log('track duration: ' + data.duration);
+                 }
+             });
         };
 
         $scope.pauseSomething = function() {
